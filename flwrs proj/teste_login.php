@@ -1,5 +1,5 @@
 <?php
-// login.php - VERSÃO CORRIGIDA COM CSS ORIGINAL
+// login.php - Versão CORRIGIDA com seu CSS original
 session_start();
 require_once 'config.php';
 
@@ -58,13 +58,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if ($usuario['tipo_usuario'] === 'admin') {
                         header("Location: admin.php");
                     } else {
-                        header("Location: produtos.php");
+                        header("Location: compra.php");
                     }
                     exit();
                 }
             }
         } catch(PDOException $e) {
             $erro = "Erro ao processar login. Tente novamente mais tarde.";
+            // Comente a linha abaixo em produção
+            $erro .= " Debug: " . $e->getMessage();
         }
     }
 }
@@ -103,7 +105,6 @@ $email_cookie = isset($_COOKIE['lembrar_email']) ? $_COOKIE['lembrar_email'] : '
       padding: 0 2rem;
     }
 
-    /* ===== HEADER ===== */
     header {
       padding: 1.5rem 0 1rem 0;
       border-bottom: 1px solid rgba(183, 164, 160, 0.15);
@@ -171,30 +172,6 @@ $email_cookie = isset($_COOKIE['lembrar_email']) ? $_COOKIE['lembrar_email'] : '
       font-weight: 300;
     }
 
-    .nav-menu {
-      display: flex;
-      gap: 2.5rem;
-      font-size: 0.9rem;
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-    }
-
-    .nav-menu a {
-      text-decoration: none;
-      color: #5e5a55;
-      transition: color 0.2s;
-      font-size: 0.85rem;
-      border-bottom: 1px solid transparent;
-      padding-bottom: 4px;
-    }
-
-    .nav-menu a:hover {
-      color: #c06f8b;
-      border-bottom-color: #f7d5e7;
-    }
-
-    /* ===== TELA DE LOGIN ===== */
     .login-section {
       display: flex;
       justify-content: center;
@@ -234,7 +211,6 @@ $email_cookie = isset($_COOKIE['lembrar_email']) ? $_COOKIE['lembrar_email'] : '
       text-align: center;
     }
 
-    /* Mensagens de erro */
     .error-message {
       background-color: #ffe4e4;
       border-left: 4px solid #e74c3c;
@@ -294,7 +270,6 @@ $email_cookie = isset($_COOKIE['lembrar_email']) ? $_COOKIE['lembrar_email'] : '
       align-items: center;
       justify-content: center;
       color: #b2a19b;
-      font-size: 1.5rem;
       transition: color 0.2s;
       padding: 0;
     }
@@ -346,6 +321,17 @@ $email_cookie = isset($_COOKIE['lembrar_email']) ? $_COOKIE['lembrar_email'] : '
       width: 1rem;
       height: 1rem;
       accent-color: #b2e4b3;
+    }
+
+    .esqueci a {
+      color: #b4849a;
+      text-decoration: none;
+      border-bottom: 1px solid #f7d5e7;
+    }
+
+    .esqueci a:hover {
+      color: #9f6182;
+      border-bottom-color: #deef6e;
     }
 
     .btn-login {
@@ -401,16 +387,16 @@ $email_cookie = isset($_COOKIE['lembrar_email']) ? $_COOKIE['lembrar_email'] : '
     }
 
     .info-rodape span {
-      background: #f7d5e7; 
-      color:#5a4b42; 
-      padding: 0.3rem 1.5rem; 
-      border-radius: 40px; 
+      background: #f7d5e7;
+      color: #5a4b42;
+      padding: 0.3rem 1.5rem;
+      border-radius: 40px;
       font-size: 0.8rem;
     }
 
     .info-rodape span:last-child {
-      background: #91b691; 
-      color:#2e472f;
+      background: #91b691;
+      color: #2e472f;
     }
 
     footer {
@@ -428,18 +414,12 @@ $email_cookie = isset($_COOKIE['lembrar_email']) ? $_COOKIE['lembrar_email'] : '
       font-weight: 400;
     }
 
-    /* responsivo */
     @media (max-width: 600px) {
       .form-login {
         padding: 2rem 1.2rem;
       }
       .header-flex {
         flex-direction: column;
-        gap: 1rem;
-      }
-      .nav-menu {
-        flex-wrap: wrap;
-        justify-content: center;
         gap: 1rem;
       }
     }
@@ -461,8 +441,6 @@ $email_cookie = isset($_COOKIE['lembrar_email']) ? $_COOKIE['lembrar_email'] : '
           </div>
         </div>
       </div>
-      <nav class="nav-menu">
-      </nav>
     </div>
   </header>
 
@@ -488,7 +466,7 @@ $email_cookie = isset($_COOKIE['lembrar_email']) ? $_COOKIE['lembrar_email'] : '
             <label for="senha">senha</label>
             <div class="password-wrapper">
               <input type="password" id="senha" name="senha" placeholder="sua senha" required>
-              <button type="button" class="toggle-password" onclick="togglePassword('senha', this)" aria-label="mostrar/esconder senha">
+              <button type="button" class="toggle-password" onclick="togglePassword('senha', this)">
                 <span class="material-symbols-outlined">visibility</span>
               </button>
             </div>

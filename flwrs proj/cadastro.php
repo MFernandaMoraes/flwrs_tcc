@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$data_obj || $data_obj->format('Y-m-d') !== $data_nasc) {
             $erros[] = "Data de nascimento inválida";
         } else {
-            // Verificar idade mínima (opcional: 18 anos)
+            // Verificar idade mínima (opcional: 13 anos)
             $hoje = new DateTime();
             $idade = $hoje->diff($data_obj)->y;
             if ($idade < 13) {
@@ -147,8 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -161,7 +159,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
   <!-- Material Symbols para ícone de olho (leve e moderno) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1" />
-  <link rel="stylesheet" href="/css/cadastro.css">
   <style>
     * {
       margin: 0;
@@ -310,6 +307,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       margin-bottom: 2.2rem;
       border-bottom: 1px dashed #deef6e;
       padding-bottom: 0.8rem;
+      text-align: center;
+    }
+
+    /* Mensagens de erro */
+    .error-messages {
+      background-color: #ffe4e4;
+      border-left: 4px solid #e74c3c;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+    }
+
+    .error-messages ul {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+
+    .error-messages li {
+      color: #c0392b;
+      font-size: 0.85rem;
+      margin: 0.25rem 0;
+    }
+
+    .success-message {
+      background-color: #d4edda;
+      border-left: 4px solid #28a745;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      color: #155724;
       text-align: center;
     }
 
@@ -537,7 +564,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container header-flex">
       <div class="header-left">
         <!-- Seta de voltar -->
-        <a href="home.php" class="back-button" onclick="">
+        <a href="home.php" class="back-button">
           <span class="material-symbols-outlined">arrow_back</span>
         </a>
         <!-- Logo -->
@@ -561,15 +588,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h3>Criar conta</h3>
         <div class="form-sub">preencha para fazer parte</div>
 
-        <form action="#" method="post">
+        <!-- Exibir mensagens de erro -->
+        <?php if (!empty($erros)): ?>
+          <div class="error-messages">
+            <ul>
+              <?php foreach ($erros as $erro): ?>
+                <li><?php echo htmlspecialchars($erro); ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        <?php endif; ?>
+
+        <!-- Exibir mensagem de sucesso -->
+        <?php if ($sucesso): ?>
+          <div class="success-message">
+            ✅ Cadastro realizado com sucesso! Redirecionando...
+          </div>
+        <?php endif; ?>
+
+        <form action="#" method="POST">
           <div class="input-group">
             <label for="nome">nome completo</label>
-            <input type="text" id="nome" name="nome" placeholder="" required>
+            <input type="text" id="nome" name="nome" placeholder="" value="<?php echo htmlspecialchars($nome ?? ''); ?>" required>
           </div>
 
           <div class="input-group">
             <label for="email">e-mail</label>
-            <input type="email" id="email" name="email" placeholder="central.flwrs@gmail.com" required>
+            <input type="email" id="email" name="email" placeholder="central.flwrs@gmail.com" value="<?php echo htmlspecialchars($email ?? ''); ?>" required>
           </div>
 
           <!-- campo senha com olho -->
@@ -578,7 +623,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <label for="senha">senha</label>
               <div class="password-wrapper">
                 <input type="password" id="senha" name="senha" placeholder="mín. 8 caracteres" required minlength="8">
-                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('senha', this)" aria-label="mostrar/esconder senha">
+                <button type="button" class="toggle-password" data-target="senha" aria-label="mostrar/esconder senha">
                   <span class="material-symbols-outlined">visibility</span>
                 </button>
               </div>
@@ -587,7 +632,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <label for="confirma">confirmar senha</label>
               <div class="password-wrapper">
                 <input type="password" id="confirma" name="confirma" placeholder="digite novamente" required>
-                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirma', this)" aria-label="mostrar/esconder senha">
+                <button type="button" class="toggle-password" data-target="confirma" aria-label="mostrar/esconder senha">
                   <span class="material-symbols-outlined">visibility</span>
                 </button>
               </div>
@@ -597,41 +642,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="linha-dupla">
             <div class="input-group">
               <label for="data-nasc">data de nascimento</label>
-              <input type="date" id="data-nasc" name="data-nasc">
+              <input type="date" id="data-nasc" name="data-nasc" value="<?php echo htmlspecialchars($data_nasc ?? ''); ?>">
             </div>
             <div class="input-group">
               <label for="genero">gênero (opcional)</label>
               <select id="genero" name="genero">
-                <option value="" disabled selected>—</option>
-                <option value="f">feminino</option>
-                <option value="m">masculino</option>
-                <option value="outro">outro</option>
+                <option value="" <?php echo empty($genero) ? 'selected' : ''; ?>>—</option>
+                <option value="f" <?php echo ($genero ?? '') === 'f' ? 'selected' : ''; ?>>feminino</option>
+                <option value="m" <?php echo ($genero ?? '') === 'm' ? 'selected' : ''; ?>>masculino</option>
+                <option value="outro" <?php echo ($genero ?? '') === 'outro' ? 'selected' : ''; ?>>outro</option>
               </select>
             </div>
           </div>
 
           <div class="input-group">
             <label for="telefone">celular / whatsapp</label>
-            <input type="tel" id="telefone" name="telefone" placeholder="(45) 99999-9999">
+            <input type="tel" id="telefone" name="telefone" placeholder="(45) 99999-9999" value="<?php echo htmlspecialchars($telefone ?? ''); ?>">
           </div>
 
           <div class="linha-dupla">
             <div class="input-group">
               <label for="cep">CEP (para entregas)</label>
-              <input type="text" id="cep" name="cep" placeholder="00000-000">
+              <input type="text" id="cep" name="cep" placeholder="00000-000" value="<?php echo htmlspecialchars($cep ?? ''); ?>">
             </div>
             <div class="input-group">
               <label for="numero">número</label>
-              <input type="text" id="numero" name="numero" placeholder="ex: 42">
+              <input type="text" id="numero" name="numero" placeholder="ex: 42" value="<?php echo htmlspecialchars($numero ?? ''); ?>">
             </div>
           </div>
 
           <div class="termos">
-            <input type="checkbox" id="termos" name="termos" required>
+            <input type="checkbox" id="termos" name="termos" <?php echo isset($termos) && $termos ? 'checked' : ''; ?> required>
             <label for="termos">aceito os <a href="#">termos de uso</a> e a <a href="#">política de privacidade</a> da Flwrs.</label>
           </div>
 
-          <button type="button" class="btn-cadastrar">criar minha conta</button>
+          <button type="submit" class="btn-cadastrar">criar minha conta</button>
 
           <div class="login-redirect">
             Já tem uma conta? <a href="login.php">fazer login</a>
@@ -650,6 +695,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>Flwrs — <span>“Flowers that feel like felling”</span> — pequenos gestos, memórias eternas</p>
   </footer>
 
-<script src="js/cadastro.js"></script>
+  <script>
+    // Função para alternar visibilidade da senha
+    function togglePasswordVisibility(inputId, buttonElement) {
+      const input = document.getElementById(inputId);
+      const iconSpan = buttonElement.querySelector('span');
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        iconSpan.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        iconSpan.textContent = 'visibility';
+      }
+    }
+
+    // Adicionar eventos para todos os botões de toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleButtons = document.querySelectorAll('.toggle-password');
+      
+      toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          if (targetId) {
+            togglePasswordVisibility(targetId, this);
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
