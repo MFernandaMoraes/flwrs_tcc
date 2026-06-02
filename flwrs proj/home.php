@@ -27,7 +27,7 @@
         <a href="produtos.php">Produtos</a>
         <a href="faq.php">FAQ de delivery</a>
         <a href="info.php">Sobre nós</a>
-        <a href="login.php">Login</a>
+        <a href="admin.php">Login</a>
       </nav>
     </div>
   </header>
