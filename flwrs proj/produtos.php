@@ -140,7 +140,7 @@
     <!-- banner promocional / assinatura -->
     <section class="destaque-promo">
       <h3><span>assinatura mensal</span> · todo mês um afeto surpresa</h3>
-      <a href="teste.html" class="btn-promo">conhecer</a>
+      <a href="planos.php" class="btn-promo">conhecer</a>
     </section>
 
     <!-- contato rápido -->

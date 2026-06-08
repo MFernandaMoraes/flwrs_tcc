@@ -27,7 +27,7 @@
         <a href="produtos.php">Produtos</a>
         <a href="faq.php">FAQ de delivery</a>
         <a href="info.php">Sobre nós</a>
-        <a href="admin.php">Login</a>
+        <a href="login.php">Login</a>
       </nav>
     </div>
   </header>
@@ -69,7 +69,7 @@
         <div class="card-icon">✨</div>
         <h3>assinatura mensal</h3>
         <p>Todo mês um pequeno gesto. Flores surpresa com a curadoria flwrs.</p>
-        <a href="teste.php" class="card-link">ASSINAR</a>
+        <a href="planos.php" class="card-link">ASSINAR</a>
       </article>
     </section>
 

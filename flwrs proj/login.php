@@ -523,19 +523,6 @@ $email_cookie = isset($_COOKIE['lembrar_email']) ? $_COOKIE['lembrar_email'] : '
     <p>Flwrs — <span>“Flowers that feel like felling”</span> — pequenos gestos, memórias eternas</p>
   </footer>
 
-  <script>
-    function togglePassword(inputId, button) {
-      const input = document.getElementById(inputId);
-      const icon = button.querySelector('.material-symbols-outlined');
-      
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.textContent = 'visibility_off';
-      } else {
-        input.type = 'password';
-        icon.textContent = 'visibility';
-      }
-    }
-  </script>
+<script src="js/login.js"></script>
 </body>
 </html>
