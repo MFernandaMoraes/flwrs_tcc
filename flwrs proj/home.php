@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100;14..32,200;14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/home.css">
   <style>
   </style>
@@ -27,6 +29,12 @@
         <a href="produtos.php">Produtos</a>
         <a href="faq.php">FAQ de delivery</a>
         <a href="info.php">Sobre nós</a>
+        <a href="carrinho.php" class="cart-link" id="cartNavLink">
+          <div class="cart-icon-wrapper">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count-badge" id="cartCountBadge">0</span>
+          </div>
+        </a>
         <a href="login.php">Login</a>
       </nav>
     </div>
@@ -105,5 +113,7 @@
   <footer>
     <p>Flwrs — <span>“Flowers that feel like felling”</span> — pequenos gestos, memórias eternas</p>
   </footer>
+
+  <script src="js/home.js"></script>
 </body>
 </html>
