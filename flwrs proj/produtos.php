@@ -30,7 +30,7 @@
         </div>
         <nav class="nav-menu">
             <a href="produtos.php" style="color:#c06f8b; border-bottom-color:#f7d5e7;">Produtos</a>
-            <a href="#">FAQ de delivery</a>
+            <a href="faq.php">FAQ de delivery</a>
             <a href="info.php">Sobre nós</a>
             <a href="carrinho.php" class="cart-link">
                 <div class="cart-icon-wrapper">

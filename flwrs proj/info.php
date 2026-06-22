@@ -32,10 +32,10 @@
         </div>
       </div>
       <nav class="nav-menu">
-        <a href="#">Produtos</a>
-        <a href="#">FAQ de delivery</a>
+        <a href="produtos.php">Produtos</a>
+        <a href="faq.php">FAQ de delivery</a>
         <a href="#" style="color:#c06f8b; border-bottom-color:#f7d5e7;">Sobre nós</a>
-        <a href="#">Login</a>
+        <a href="login.php">Login</a>
       </nav>
     </div>
   </header>
